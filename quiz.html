@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 5%;
+            background-color: white;
+            color: Dark Gray; 
+        }
+        .quiz-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid blue; 
+            border-radius: 10px;
+            background-color: White; 
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: green; 
+        }
+        .result.incorrect {
+            color: Red;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: White;
+            background-color: Blue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: Sky blue; /
+        }
+        input {
+            padding: 10px;
+            width: calc(100% - 40px);
+            margin-bottom: 20px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="question" id="question">Loading question...</div>
+        <input type="text" id="answer" placeholder="Type your answer here">
+        <br><br>
+        <button onclick="checkAnswer()">Submit</button>
+        <div class="result" id="result"></div>
+    </div>
+    <script>
+        const questions = [
+            {
+                question: "What tag is used to render an image on a webpage?",
+                answer: "img"
+            }
+        ];
+        let currentQuestionIndex = 0;
+        function loadQuestion() {
+            const questionElement = document.getElementById("question");
+            questionElement.textContent = questions[currentQuestionIndex].question;
+        }
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim();
+            const resultElement = document.getElementById("result");
+            if (userAnswer.toLowerCase() === questions[currentQuestionIndex].answer.toLowerCase()) {
+                resultElement.textContent = "Correct!";
+                resultElement.className = "result correct";
+            } else {
+                resultElement.textContent = `Incorrect. The correct answer is: ${questions[currentQuestionIndex].answer}`;
+                resultElement.className = "result incorrect";
+            }
+            setTimeout(() => {
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                    document.getElementById("answer").value = "";
+                    resultElement.textContent = "";
+                } else {
+                    document.getElementById("question").textContent = "Quiz Completed!";
+                    document.getElementById("answer").style.display = "none";
+                    document.querySelector("button").style.display = "none";
+                }
+            }, 3000);
+        }
+        loadQuestion();
+    </script>
+</body>
+</html>
