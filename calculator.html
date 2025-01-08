@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 5%;
+            background-color: white;
+        }
+        .calculator-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 2px solid blue;
+            border-radius: 10px;
+            background-color: white;
+        }
+        .calculator-title {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: blue; 
+        }
+        .input-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px 0;
+        }
+        input[type="number"], select {
+            padding: 10px;
+            font-size: 1em;
+            margin: 0 10px;
+            width: 100px;
+            border: 1px solid gray; 
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white; 
+            background-color: blue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: darkblue; 
+        }
+        .result {
+            font-size: 1.5em;
+            margin-top: 20px;
+            color: black; 
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-title">Interactive Calculator</div>
+        <div class="input-group">
+            <input type="number" id="num1" placeholder="Enter first number">
+            <select id="operation">
+                <option value="add">+</option>
+                <option value="subtract">-</option>
+                <option value="multiply">×</option>
+                <option value="divide">÷</option>
+            </select>
+            <input type="number" id="num2" placeholder="Enter second number">
+        </div>
+        <button onclick="calculate()">Calculate</button>
+        <div class="result" id="result">Result will be displayed here</div>
+    </div>
+    <script>
+        function calculate() {
+            const num1 = parseFloat(document.getElementById("num1").value);
+            const num2 = parseFloat(document.getElementById("num2").value);
+            const operation = document.getElementById("operation").value;
+            const resultElement = document.getElementById("result");
+            if (isNaN(num1) || isNaN(num2)) {
+                resultElement.textContent = "Please enter valid numbers.";
+                return;
+            }
+            let result;
+            switch (operation) {
+                case "add":
+                    result = num1 + num2;
+                    break;
+                case "subtract":
+                    result = num1 - num2;
+                    break;
+                case "multiply":
+                    result = num1 * num2;
+                    break;
+                case "divide":
+                    if (num2 === 0) {
+                        resultElement.textContent = "Cannot divide by zero.";
+                        return;
+                    }
+                    result = num1 / num2;
+                    break;
+                default:
+                    resultElement.textContent = "Invalid operation.";
+                    return;
+            }
+            resultElement.textContent = `Result: ${result}`;
+        }
+    </script>
+</body>
+</html>
