@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Greeting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 20%;
+            background-color: lightgray; 
+        }
+        h1 {
+            font-size: 2.5em;
+            color: black; 
+        }
+        .morning {
+            color: orange; 
+        }
+        .afternoon {
+            color: green; 
+        }
+        .evening {
+            color: blue; 
+        }
+    </style>
+</head>
+<body>
+    <h1 id="greeting"></h1>
+    <script>
+        const now = new Date();
+        const hours = now.getHours();
+        let greeting;
+        let className;
+        if (hours < 12) {
+            greeting = "Good Morning!";
+            className = "morning";
+        } else if (hours < 18) {
+            greeting = "Good Afternoon!";
+            className = "afternoon";
+        } else {
+            greeting = "Good Evening!";
+            className = "evening";
+        }
+        const greetingElement = document.getElementById("greeting");
+        greetingElement.textContent = greeting;
+        greetingElement.className = className; // Apply the dynamic class
+    </script>
+</body>
+</html>
